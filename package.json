@@ -1,0 +1,24 @@
+{
+  "name": "gelato-bot",
+  "version": "1.0.0",
+  "description": "Gelato Bot",
+  "main": "index.js",
+  "author": "Ed Zynda",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/register": "^7.11.5",
+    "@gelatonetwork/core": "0.6.0",
+    "@nomiclabs/buidler": "^1.4.5",
+    "@nomiclabs/buidler-ethers": "^2.0.0",
+    "@nomiclabs/buidler-waffle": "^2.0.0",
+    "chai": "^4.2.0",
+    "chalk": "^4.1.0",
+    "dotenv": "^8.2.0",
+    "ethereum-waffle": "^3.0.0",
+    "ethers": "^5.0.0",
+    "solc": "0.6.10"
+  },
+  "dependencies": {}
+}
