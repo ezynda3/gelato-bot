@@ -5,6 +5,9 @@ import chalk from 'chalk'
 
 export default task("fund-proxy", "Funds the Gelato User Proxy", async () => {
     
+    const myUser = (await ethers.getSigners())[1];
+    const myUserAddress = await myUser.getAddress();
+
     const executorNetwork = "0xa5A98a6AD379C7B578bD85E35A3eC28AD72A336b"
     const gelatoUserProxyProviderModule = "0x66a35534126B4B0845A2aa03825b95dFaaE88B0C"
     const gelatoUserProxyAddress = fs.readFileSync('./artifacts/UserProxy.address').toString()
@@ -46,7 +49,7 @@ export default task("fund-proxy", "Funds the Gelato User Proxy", async () => {
     const multiProvideData = iFace.encodeFunctionData(
         "multiProvide",
         [
-            isDefaultExecutorAssigned ? ethers.constants.AddressZero : executorNetwork,
+            isDefaultExecutorAssigned ? ethers.constants.AddressZero : myUserAddress,
             [],
             isUserProxyModuleWhitelisted ? [] : [gelatoUserProxyProviderModule]
         ]

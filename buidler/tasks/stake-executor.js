@@ -8,9 +8,15 @@ export default task(
   "Stake some eth as an executor",
   async (taskArguments, bre, runSuper) => {
     const executorNetwork = "0xa5A98a6AD379C7B578bD85E35A3eC28AD72A336b";
+    const gelatoCoreAddress = "0x733aDEf4f8346FD96107d8d6605eA9ab5645d632";
 
     const myUser = (await ethers.getSigners())[1];
     const myUserAddress = await myUser.getAddress();
+
+     const gelatoCore = await ethers.getContractAt(
+       GelatoCoreLib.GelatoCore.abi, // fetches the contract ABI from artifacts/
+       gelatoCoreAddress
+     );
 
     const gelatoExectors = await ethers.getContractAt(
       require("@gelatonetwork/core/artifacts/IGelatoExecutors.json").abi,
@@ -18,7 +24,7 @@ export default task(
     );
 
     try {
-      const tx = await gelatoExectors.connect(myUser).stakeExecutor({
+      const tx = await gelatoCore.connect(myUser).stakeExecutor({
         value: ethers.utils.parseEther("1"),
       });
       const receipt = await tx.wait();

@@ -16,12 +16,15 @@ export default task("execute-tasks", "Wait for new tasks and exec", async (taskA
         gelatoCoreAddress
     )
 
-    try {
-      let tx, receipt, canExec
+  try {
+    let block = 7182463
+    let tx, receipt, canExec
+    while (true) {
       const tasks = await gelatoCore.queryFilter(
         gelatoCore.filters.LogTaskSubmitted(),
-        7182436
+        block
       );
+    
       for (let i = 0; i < tasks.length; i++) {
         canExec = await gelatoCore.connect(myUser).canExec(
           tasks[i].args.taskReceipt,
@@ -40,7 +43,9 @@ export default task("execute-tasks", "Wait for new tasks and exec", async (taskA
           receipt = await tx.wait()
           console.log(chalk.greenBright("TASK EXECUTED"), "TX Hash:", chalk.magenta(receipt.transactionHash))
         }
+        block = tasks[i].blockNumber + 1
       }
+    }
     } catch (e) {
       console.log(chalk.redBright("FAIL"), e)
     }

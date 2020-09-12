@@ -22,7 +22,7 @@ export default task("deploy", "Deploy smart contracts", async (taskArgs, bre) =>
     fs.writeFileSync(`artifacts/MyKyberAction.address`, action.address)
     console.log(chalk.cyan('MyKyberAction'), 'deployed to:', chalk.magenta(action.address))
 
-    const CREATE_2_SALT = 42069
+    const CREATE_2_SALT = 52069
 
     // Quick and dirty UserProxy
     const gelatoUserProxyFactory = await ethers.getContractAt(
